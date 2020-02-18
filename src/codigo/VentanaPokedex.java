@@ -67,6 +67,8 @@ public class VentanaPokedex extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             System.out.println("hay un error");
         }
+        
+        
     }
 
     private void dibujaElPokemonQueEstaEnLaPosicion(int posicion){
