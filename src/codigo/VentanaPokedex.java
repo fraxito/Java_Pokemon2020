@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -67,8 +70,6 @@ public class VentanaPokedex extends javax.swing.JFrame {
             System.out.println(e.getMessage());
             System.out.println("hay un error");
         }
-        
-        
     }
 
     private void dibujaElPokemonQueEstaEnLaPosicion(int posicion){
@@ -179,11 +180,24 @@ public class VentanaPokedex extends javax.swing.JFrame {
     }//GEN-LAST:event_izqActionPerformed
 
     private void derActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_derActionPerformed
+
+        dibujaElPokemonQueEstaEnLaPosicion(contador);
+        
+        try {
+            resultadoConsulta = estado.executeQuery("select * from pokemon where id=" + (contador+1));
+            if (resultadoConsulta.next()){
+                nombrePokemon.setText(resultadoConsulta.getString(2));
+            }
+            else{
+                nombrePokemon.setText("Este pokemon no figura en la pokedex");
+            }
+        } catch (SQLException ex) {
+        }
         contador ++;
         if (contador >=649){
             contador = 649;
         }
-        dibujaElPokemonQueEstaEnLaPosicion(contador);
+        
     }//GEN-LAST:event_derActionPerformed
 
     /**
